@@ -1,21 +1,21 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Home from '@/views/home'
-import notFound from '@/views/notFound'
+import Vue from "vue";
+import Router from "vue-router";
+import Home from "@/views/home";
+import notFound from "@/views/notFound";
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'posts-list',
+      path: "/",
+      name: "posts-list",
       component: Home,
     },
     {
-      path: '*',
-      name: 'not-found',
+      path: "*",
+      name: "not-found",
       component: notFound,
     },
   ],
-})
+});
