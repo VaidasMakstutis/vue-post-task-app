@@ -1,0 +1,32 @@
+{
+    "authors": [
+      {
+        "id": 0,
+        "name": "John",
+        "created_at": "2022-09-20"
+      },
+      {
+        "id": 1,
+        "name": "Bruce",
+        "created_at": "2022-09-20"
+      }
+    ],
+    "posts": [
+      {
+        "id": 0,
+        "title": "First title",
+        "body": "First body",
+        "author": "John",
+        "created_at": "2022-09-20",
+        "updated_at": "XXXX-XX-XX"
+      },
+      {
+        "id": 1,
+        "title": "Second title",
+        "body": "Second body",
+        "author": "Bruce",
+        "created_at": "2022-09-20",
+        "updated_at": "XXXX-XX-XX"
+      }
+    ]
+  }  
