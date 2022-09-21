@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Home from "@/views/home";
+import posts from "@/views/posts";
 import notFound from "@/views/notFound";
 
 Vue.use(Router);
@@ -10,7 +10,7 @@ export default new Router({
     {
       path: "/",
       name: "posts-list",
-      component: Home,
+      component: posts,
     },
     {
       path: "*",
