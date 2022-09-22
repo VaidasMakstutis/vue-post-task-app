@@ -7,13 +7,14 @@
       </button>
       <div class="level-item">
         <div class="field has-addons">
-          <input class="input" type="text" placeholder="Find a post" />
+          <input class="input" type="text" v-model="searchValue" placeholder="Find a post" />
         </div>
       </div>
     </div>
     <div class="bottom">
-      <h1 class="posts-list">Posts</h1>
-      <postCard v-bind:posts="posts" />
+      <div class="posts-list-content">
+        <postCard v-bind:posts="filteredPosts" />
+      </div>
     </div>
   </div>
 </template>
@@ -34,6 +35,7 @@ export default {
   data() {
     return {
       posts: [],
+      searchValue: "",
       showModal: false,
     };
   },
@@ -50,6 +52,15 @@ export default {
     },
   },
 
+  computed: {
+    filteredPosts() {
+      return this.posts.filter((post) => {
+        console.log("Search value:", this.searchValue);
+        return post.title.match(this.searchValue);
+      });
+    },
+  },
+
   mounted() {
     this.fetchPosts("http://localhost:3000/posts");
   },
@@ -57,9 +68,6 @@ export default {
 </script>
 
 <style>
-.container {
-  margin: 25px 0;
-}
 .top {
   display: flex;
   flex-direction: row;
@@ -67,9 +75,10 @@ export default {
   align-items: center;
   margin-left: 10px;
 }
-.posts-list {
-  font-size: 24px;
-  font-weight: 500;
-  text-align: center;
+.posts-list-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 </style>

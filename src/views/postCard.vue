@@ -8,9 +8,9 @@
         <div class="content">{{ post.body }}</div>
       </div>
       <footer class="card-footer">
+        <button class="button is-info">Details</button>
         <button class="button is-success">Edit</button>
         <button class="button is-danger">Delete</button>
-        <button class="button is-info">Details</button>
       </footer>
     </div>
   </div>
