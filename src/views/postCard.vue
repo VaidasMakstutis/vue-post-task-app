@@ -30,6 +30,9 @@ export default {
 .card {
   margin: 15px;
 }
+.card-header {
+  background-color: #00d1b2;
+}
 .card-header-title {
   display: flex;
   justify-content: center;
