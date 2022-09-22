@@ -1,11 +1,20 @@
 <template>
-  <div>
-    <NewPost v-if="showModal" @close="showModal = false" />
-    <button class="button is-primary" @click="showModal = true">
-      Create New Post
-    </button>
-    <h1 class="posts-list">Posts</h1>
-    <postCard v-bind:posts="posts" />
+  <div class="container">
+    <div class="top">
+      <NewPost v-if="showModal" @close="showModal = false" />
+      <button class="button is-primary" @click="showModal = true">
+        Create New Post
+      </button>
+      <div class="level-item">
+        <div class="field has-addons">
+          <input class="input" type="text" placeholder="Find a post" />
+        </div>
+      </div>
+    </div>
+    <div class="bottom">
+      <h1 class="posts-list">Posts</h1>
+      <postCard v-bind:posts="posts" />
+    </div>
   </div>
 </template>
 
@@ -48,10 +57,19 @@ export default {
 </script>
 
 <style>
+.container {
+  margin: 25px 0;
+}
+.top {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
+}
 .posts-list {
   font-size: 24px;
   font-weight: 500;
   text-align: center;
-  margin: 25px 0;
 }
 </style>
