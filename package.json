@@ -1,5 +1,5 @@
 {
-  "name": "vue-post-tas-app",
+  "name": "vue-post-task-app",
   "version": "1.0.0",
   "description": "A Vue.js project",
   "author": "VaidasMakstutis <vaidas.makstutis@gmail.com>",
@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "axios": "^0.27.2",
+    "moment": "^2.29.4",
     "vue": "^2.5.2",
+    "vue-moment": "^4.1.0",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {

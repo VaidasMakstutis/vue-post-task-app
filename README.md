@@ -1,4 +1,4 @@
-# vue-post-tas-app
+# vue-post-task-app
 
 > A Vue.js project
 

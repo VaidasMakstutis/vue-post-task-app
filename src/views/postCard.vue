@@ -6,8 +6,14 @@
       </header>
       <div class="card-content">
         <div class="content">Author: {{ post.author }}</div>
-        <div class="content">Create date: {{ post.created_at }}</div>
-        <div class="content">Update date: {{ post.updated_at }}</div>
+        <div class="content">
+          <div class="content" v-if="!post.updated_at">
+            Create date: {{ formatDate(post.created_at) }}
+          </div>
+          <div class="content" v-if="post.updated_at">
+            Update date: {{ formatDate(post.updated_at) }}
+          </div>
+        </div>
       </div>
       <footer class="card-footer">
         <button class="button is-info">Details</button>
@@ -19,8 +25,11 @@
 </template>
 
 <script>
+import date from "../mixins/date";
+
 export default {
   props: ["posts"],
+  mixins: [date],
 };
 </script>
 
