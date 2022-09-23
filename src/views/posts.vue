@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="top">
+    <div class="container top">
       <NewPost v-if="showModal" @close="showModal = false" />
       <button class="button is-primary" @click="showModal = true">
         Create New Post
