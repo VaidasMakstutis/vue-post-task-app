@@ -7,29 +7,44 @@
         <button class="delete" aria-label="close" @click="$emit('close')"></button>
       </header>
       <section class="modal-card-body">
-        <form>
+        <form @submit="$emit('submit', $event)">
           <div class="field">
             <label class="label">Title</label>
             <div class="control">
-              <input class="input" type="text" placeholder="Please enter post title" />
+              <input
+                class="input"
+                type="text"
+                placeholder="Please enter post title"
+                v-model="postData.title"
+              />
             </div>
           </div>
           <div class="field">
             <label class="label">Author</label>
             <div class="control">
-              <input class="input" type="text" placeholder="Please enter post author" />
+              <input
+                class="input"
+                type="text"
+                placeholder="Please enter post author"
+                v-model="postData.author"
+              />
             </div>
           </div>
           <div class="field">
             <label class="label">Post content</label>
             <div class="control">
-              <input class="input" type="text" placeholder="Please enter post content" />
+              <input
+                class="input"
+                type="text"
+                placeholder="Please enter post content"
+                v-model="postData.body"
+              />
             </div>
           </div>
         </form>
       </section>
       <footer class="modal-card-foot">
-        <button class="button is-success">Save Post</button>
+        <button type="submit" class="button is-success">Submit</button>
         <button class="button" @click="$emit('close')">Cancel</button>
       </footer>
     </div>
@@ -37,7 +52,12 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: ["postData"],
+  // postModalData: {
+  //   type: Function,
+  // },
+};
 </script>
 
 <style></style>
