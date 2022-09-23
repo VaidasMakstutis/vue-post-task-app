@@ -8,10 +8,10 @@
         <div class="content">Author: {{ post.author }}</div>
         <div class="content">
           <div class="content" v-if="!post.updated_at">
-            Create date: {{ formatDate(post.created_at) }}
+            Created at: {{ formatDate(post.created_at) }}
           </div>
           <div class="content" v-if="post.updated_at">
-            Update date: {{ formatDate(post.updated_at) }}
+            Updated at: {{ formatDate(post.updated_at) }}
           </div>
         </div>
       </div>
