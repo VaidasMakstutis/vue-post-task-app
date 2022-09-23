@@ -43,11 +43,15 @@ export default {
 }
 .card-header {
   background-color: #00d1b2;
+  font-size: 20px;
 }
 .card-header-title {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.card-footer {
+  padding: 5px;
 }
 button {
   margin: 5px;
