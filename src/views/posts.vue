@@ -75,6 +75,7 @@ export default {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  margin-bottom: 15px;
 }
 .posts-list-content {
   display: flex;

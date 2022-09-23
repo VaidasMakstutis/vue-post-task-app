@@ -29,7 +29,7 @@
         </form>
       </section>
       <footer class="modal-card-foot">
-        <button class="button is-success">Save post</button>
+        <button class="button is-success">Save Post</button>
         <button class="button" @click="$emit('close')">Cancel</button>
       </footer>
     </div>
