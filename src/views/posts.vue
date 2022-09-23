@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <div class="top">
       <NewPost v-if="showModal" @close="showModal = false" />
       <button class="button is-primary" @click="showModal = true">
@@ -46,7 +46,6 @@ export default {
         .get("http://localhost:3000/posts")
         .then((res) => {
           this.posts = res.data;
-          // console.log("Posts[]:", this.posts);
         })
         .catch((error) => console.log(error));
     },
@@ -55,8 +54,11 @@ export default {
   computed: {
     filteredPosts() {
       return this.posts.filter((post) => {
-        console.log("Search value:", this.searchValue);
-        return post.title.match(this.searchValue);
+        return (
+          post.title.toLowerCase().match(this.searchValue) ||
+          post.author.toLowerCase().match(this.searchValue) ||
+          post.body.toLowerCase().match(this.searchValue)
+        );
       });
     },
   },
@@ -73,7 +75,6 @@ export default {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin-left: 10px;
 }
 .posts-list-content {
   display: flex;

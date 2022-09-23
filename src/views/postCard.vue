@@ -5,7 +5,9 @@
         <p class="card-header-title">{{ post.title }}</p>
       </header>
       <div class="card-content">
-        <div class="content">{{ post.body }}</div>
+        <div class="content">Author: {{ post.author }}</div>
+        <div class="content">Create date: {{ post.created_at }}</div>
+        <div class="content">Update date: {{ post.updated_at }}</div>
       </div>
       <footer class="card-footer">
         <button class="button is-info">Details</button>
