@@ -1,12 +1,7 @@
 <template>
   <div>
     <div class="container top">
-      <NewPost
-        v-if="showModal"
-        @close="showModal = false"
-        :postData="postData"
-        :v-on:submit="postModalData"
-      />
+      <NewPost v-if="showModal" @close="showModal = false" :postData="postData" />
       <button class="button is-primary" @click="showModal = true">
         Create New Post
       </button>
@@ -43,8 +38,8 @@ export default {
       searchValue: "",
       postData: {
         title: null,
-        author: null,
         body: null,
+        author: null,
       },
       showModal: false,
     };
@@ -56,14 +51,6 @@ export default {
         .get("http://localhost:3000/posts")
         .then((res) => {
           this.posts = res.data;
-        })
-        .catch((error) => console.log(error));
-    },
-    async postModalData() {
-      await axios
-        .post("http://localhost:3000/posts")
-        .then((res) => {
-          this.postData = res.data;
         })
         .catch((error) => console.log(error));
     },

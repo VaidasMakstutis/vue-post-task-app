@@ -7,7 +7,7 @@
         <button class="delete" aria-label="close" @click="$emit('close')"></button>
       </header>
       <section class="modal-card-body">
-        <form @submit="$emit('submit', $event)">
+        <form>
           <div class="field">
             <label class="label">Title</label>
             <div class="control">
@@ -15,18 +15,7 @@
                 class="input"
                 type="text"
                 placeholder="Please enter post title"
-                v-model="postData.title"
-              />
-            </div>
-          </div>
-          <div class="field">
-            <label class="label">Author</label>
-            <div class="control">
-              <input
-                class="input"
-                type="text"
-                placeholder="Please enter post author"
-                v-model="postData.author"
+                v-model="data.title"
               />
             </div>
           </div>
@@ -37,14 +26,27 @@
                 class="input"
                 type="text"
                 placeholder="Please enter post content"
-                v-model="postData.body"
+                v-model="data.body"
+              />
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Author</label>
+            <div class="control">
+              <input
+                class="input"
+                type="text"
+                placeholder="Please enter post author"
+                v-model="data.author"
               />
             </div>
           </div>
         </form>
       </section>
       <footer class="modal-card-foot">
-        <button type="submit" class="button is-success">Submit</button>
+        <button type="submit" class="button is-success" @click="postModalData(data)">
+          Submit
+        </button>
         <button class="button" @click="$emit('close')">Cancel</button>
       </footer>
     </div>
@@ -52,11 +54,35 @@
 </template>
 
 <script>
+import axios from "axios";
+import date from "../mixins/date";
+
 export default {
   props: ["postData"],
-  // postModalData: {
-  //   type: Function,
-  // },
+  mixins: [date],
+
+  data() {
+    return {
+      data: {
+        title: this.postData.title,
+        author: this.postData.author,
+        body: this.postData.body,
+        created_at: new Date(),
+        updated_at: 0,
+      },
+    };
+  },
+
+  methods: {
+    async postModalData(item) {
+      await axios
+        .post("http://localhost:3000/posts", item)
+        .then(() => {
+          this.$router.go();
+        })
+        .catch((error) => console.log(error));
+    },
+  },
 };
 </script>
 
