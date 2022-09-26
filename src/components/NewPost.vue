@@ -8,6 +8,12 @@
       </header>
       <section class="modal-card-body">
         <form>
+          <p class="errors" v-if="errors.length">
+            <b>Please fill all required fields:</b>
+            <ul>
+              <li v-for="error in errors" :key="error">{{ error }}</li>
+            </ul>
+          </p>
           <div class="field">
             <label class="label">Title</label>
             <div class="control">
@@ -44,7 +50,7 @@
         </form>
       </section>
       <footer class="modal-card-foot">
-        <button type="submit" class="button is-success" @click="postModalData(data)">
+        <button type="submit" class="button is-success" @click="formValidation()">
           Submit
         </button>
         <button class="button" @click="$emit('close')">Cancel</button>
@@ -67,13 +73,30 @@ export default {
         title: this.postData.title,
         author: this.postData.author,
         body: this.postData.body,
-        created_at: new Date(),
+        created_at: this.postData.created_at,
         updated_at: 0,
       },
+      errors: [],
     };
   },
 
   methods: {
+    formValidation() {
+      if (this.data.title && this.data.author && this.data.body) {
+        this.postModalData(this.data);
+      }
+      this.errors = [];
+      if (!this.data.title) {
+        this.errors.push("Name is required");
+      }
+      if (!this.data.author) {
+        this.errors.push("Author is required");
+      }
+      if (!this.data.body) {
+        this.errors.push("Content is required");
+      }
+    },
+
     async postModalData(item) {
       await axios
         .post("http://localhost:3000/posts", item)
@@ -86,4 +109,10 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.errors {
+  padding: 20px;
+  margin: 10px;
+  background-color: #48c78e;
+}
+</style>
