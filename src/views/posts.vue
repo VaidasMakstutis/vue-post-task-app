@@ -13,7 +13,7 @@
     </div>
     <div class="bottom">
       <div class="posts-list-content">
-        <postCard :posts="filteredPosts" />
+        <postCard :posts="posts" />
       </div>
     </div>
   </div>
@@ -35,12 +35,14 @@ export default {
   data() {
     return {
       posts: [],
-      searchValue: "",
       postData: {
         title: null,
-        body: null,
         author: null,
+        body: null,
+        created_at: new Date(),
+        updated_at: 0,
       },
+      searchValue: "",
       showModal: false,
     };
   },
@@ -51,25 +53,28 @@ export default {
         .get("http://localhost:3000/posts")
         .then((res) => {
           this.posts = res.data;
+          console.log("Initial:", this.posts);
         })
         .catch((error) => console.log(error));
     },
   },
 
   computed: {
-    filteredPosts() {
-      return this.posts.filter((post) => {
-        return (
-          post.title.toLowerCase().match(this.searchValue) ||
-          post.author.toLowerCase().match(this.searchValue) ||
-          post.body.toLowerCase().match(this.searchValue)
-        );
-      });
+    async searchPosts() {
+      if (this.searchValue) {
+        await axios
+          .get("http://localhost:3000/posts?q=" + this.searchValue)
+          .then((res) => {
+            this.posts = res.data;
+            console.log("Searched posts:", this.posts);
+          })
+          .catch((error) => console.log(error));
+      }
     },
   },
 
   mounted() {
-    this.fetchPosts("http://localhost:3000/posts");
+    this.fetchPosts();
   },
 };
 </script>
