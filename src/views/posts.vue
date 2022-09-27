@@ -58,7 +58,6 @@ export default {
       try {
         await axios.get("http://localhost:3000/posts?q=" + this.searchValue).then((res) => {
           this.posts = res.data;
-          console.log("Initial:", this.posts);
         });
       } catch (error) {
         console.log(error);
