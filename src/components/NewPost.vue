@@ -82,18 +82,23 @@ export default {
 
   methods: {
     formValidation() {
-      if (this.data.title && this.data.author && this.data.body) {
+      const letters  = /^[a-zA-Z]+$/;
+      this.errors = [];
+
+      if (this.data.title && this.data.author && this.data.author.match(letters) && this.data.body) {
         this.postModalData(this.data);
       }
-      this.errors = [];
       if (!this.data.title) {
         this.errors.push("Name is required");
       }
-      if (!this.data.author) {
-        this.errors.push("Author is required");
-      }
       if (!this.data.body) {
         this.errors.push("Content is required");
+      }
+      if (!this.data.author) {
+        this.errors.push("Author is required");
+      } else if (!this.data.author.match(letters)) {
+        this.errors.push("Only letters are acceptable for author");
+        return;
       }
     },
 
