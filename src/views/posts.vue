@@ -1,13 +1,19 @@
 <template>
   <div>
-    <div class="container top">
+    <div class="top">
       <NewPost v-if="showModal" @close="showModal = false" :postData="postData" />
       <button class="button is-primary" @click="showModal = true">
         Create New Post
       </button>
       <div class="level-item">
         <div class="field has-addons">
-          <input class="input" type="text" v-model="searchValue" placeholder="Find a post" />
+          <input
+            class="input"
+            type="text"
+            placeholder="Find a post"
+            v-model="searchValue"
+            @input="getPosts"
+          />
         </div>
       </div>
     </div>
@@ -35,6 +41,7 @@ export default {
   data() {
     return {
       posts: [],
+      searchValue: "",
       postData: {
         title: null,
         author: null,
@@ -42,46 +49,31 @@ export default {
         created_at: new Date(),
         updated_at: 0,
       },
-      searchValue: "",
       showModal: false,
     };
   },
 
   methods: {
-    async fetchPosts() {
-      await axios
-        .get("http://localhost:3000/posts")
-        .then((res) => {
+    async getPosts() {
+      try {
+        await axios.get("http://localhost:3000/posts?q=" + this.searchValue).then((res) => {
           this.posts = res.data;
           console.log("Initial:", this.posts);
-        })
-        .catch((error) => console.log(error));
-    },
-  },
-
-  computed: {
-    async searchPosts() {
-      if (this.searchValue) {
-        await axios
-          .get("http://localhost:3000/posts?q=" + this.searchValue)
-          .then((res) => {
-            this.posts = res.data;
-            console.log("Searched posts:", this.posts);
-          })
-          .catch((error) => console.log(error));
+        });
+      } catch (error) {
+        console.log(error);
       }
     },
   },
 
   mounted() {
-    this.fetchPosts();
+    this.getPosts();
   },
 };
 </script>
 
 <style>
 .top {
-  display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
