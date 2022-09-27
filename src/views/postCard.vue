@@ -18,7 +18,9 @@
           </div>
         </div>
         <footer class="card-footer">
-          <button class="button is-info">Details</button>
+          <router-link :to="getPostDetails(post.id)">
+            <button class="button is-info">Details</button>
+          </router-link>
           <button class="button is-success">Edit</button>
           <button class="button is-danger">Delete</button>
         </footer>
@@ -29,10 +31,17 @@
 
 <script>
 import date from "../mixins/date";
+import { ROUTE_NAME } from "@/router/index.js";
 
 export default {
   props: ["posts"],
   mixins: [date],
+  name: "detail",
+  methods: {
+    getPostDetails(id) {
+      return { name: ROUTE_NAME.DETAILS, params: { id: id } };
+    },
+  },
 };
 </script>
 
