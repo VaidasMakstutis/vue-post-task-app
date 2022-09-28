@@ -1,8 +1,14 @@
 <template>
   <div>
     <div class="top">
-      <NewPost v-if="showModal" @close="showModal = false" :postData="postData" />
-      <button class="button is-primary" @click="showModal = true">
+      <NewPost v-if="showPostModal" @close="showPostModal = false" :postData="postData" />
+      <EditPost v-if="showEditModal" :id="selectedEditItem" @close="showEditModal = false" />
+      <DeletePost
+        v-if="showDeleteModal"
+        :id="selectedDeleteItem"
+        @close="showDeleteModal = false"
+      />
+      <button class="button is-primary" @click="showPostModal = true">
         Create New Post
       </button>
       <div class="level-item">
@@ -18,8 +24,19 @@
       </div>
     </div>
     <div class="bottom">
+      <div v-if="!posts.length">
+        <span class="no-created-posts">No posts!</span>
+      </div>
       <div class="posts-list-content">
-        <postCard :posts="posts" />
+        <div class="container">
+          <postCard
+            v-for="post in posts"
+            :key="post.id"
+            :post="post"
+            @openDeleteModal="toggleDeleteModal"
+            @openEditModal="toggleEditModal"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -28,12 +45,16 @@
 <script>
 import axios from "axios";
 import NewPost from "../components/NewPost.vue";
+import EditPost from "../components/EditPost.vue";
+import DeletePost from "../components/DeletePost.vue";
 import postCard from "./postCard.vue";
 
 export default {
   name: "posts-list",
   components: {
     NewPost,
+    EditPost,
+    DeletePost,
     postCard,
   },
 
@@ -49,19 +70,32 @@ export default {
         created_at: new Date(),
         updated_at: 0,
       },
-      showModal: false,
+      showPostModal: false,
+      showEditModal: false,
+      showDeleteModal: false,
+      selectedDeleteItem: null,
+      selectedEditItem: null,
     };
   },
 
   methods: {
     async getPosts() {
+      let query = this.searchValue ? "?q=" + this.searchValue : "";
       try {
-        await axios.get("http://localhost:3000/posts?q=" + this.searchValue).then((res) => {
+        await axios.get("http://localhost:3000/posts" + query).then((res) => {
           this.posts = res.data;
         });
       } catch (error) {
         console.log(error);
       }
+    },
+    toggleEditModal(postId) {
+      this.selectedEditItem = parseInt(postId);
+      this.showEditModal = !this.showEditModal;
+    },
+    toggleDeleteModal(postId) {
+      this.selectedDeleteItem = parseInt(postId);
+      this.showDeleteModal = !this.showDeleteModal;
     },
   },
 
@@ -73,15 +107,33 @@ export default {
 
 <style>
 .top {
+  display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   margin-bottom: 15px;
+}
+.level-item {
+  margin-left: 5px;
+}
+.bottom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .posts-list-content {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+}
+.no-created-posts {
+  font-size: 30px;
+  font-weight: 500;
+  margin-top: 40px;
+}
+.container {
+  display: flex;
+  flex-wrap: wrap;
 }
 </style>
