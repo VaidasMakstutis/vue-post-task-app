@@ -20,7 +20,7 @@
               <input
                 class="input"
                 type="text"
-                placeholder="Please enter post title"
+                placeholder="Post title"
                 v-model="data.title"
               />
             </div>
@@ -31,7 +31,7 @@
               <input
                 class="input"
                 type="text"
-                placeholder="Please enter post content"
+                placeholder="Post content"
                 v-model="data.body"
               />
             </div>
@@ -42,7 +42,7 @@
               <input
                 class="input"
                 type="text"
-                placeholder="Please enter post author"
+                placeholder="Post author"
                 v-model="data.author"
               />
             </div>
@@ -86,7 +86,7 @@ export default {
       this.errors = [];
 
       if (this.data.title && this.data.author && this.data.author.match(letters) && this.data.body) {
-        this.postModalData(this.data);
+        this.submitNewPost(this.data);
       }
       if (!this.data.title) {
         this.errors.push("Name is required");
@@ -102,13 +102,15 @@ export default {
       }
     },
 
-    async postModalData(item) {
-      await axios
-        .post("http://localhost:3000/posts", item)
-        .then(() => {
-          this.$router.go();
-        })
-        .catch((error) => console.log(error));
+    async submitNewPost(item) {
+      try {
+        await axios.post("http://localhost:3000/posts", item)
+          .then(() => {
+            this.$router.go();
+          });
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 };
