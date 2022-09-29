@@ -16,7 +16,9 @@
     </div>
     <footer class="card-footer">
       <router-link :to="getPostDetails(post.id)">
-        <button class="button is-info">Details</button>
+        <button class="button is-info">
+          Details
+        </button>
       </router-link>
       <button class="button is-success" @click="toggleEditModal()">
         Edit
@@ -40,12 +42,10 @@ export default {
       return { name: ROUTE_NAME.DETAILS, params: { id: id } };
     },
     toggleEditModal() {
-      this.$emit("openEditModal", this.post.id);
-      console.log("Post edit id:" + this.post.id);
+      this.$emit("openEditModal", this.post);
     },
     toggleDeleteModal() {
       this.$emit("openDeleteModal", this.post.id);
-      console.log("Post delete id:" + this.post.id);
     },
   },
 };

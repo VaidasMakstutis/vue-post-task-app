@@ -19,10 +19,12 @@
         </div>
       </div>
       <footer class="card-footer">
-        <button class="button is-success">
+        <button class="button is-success" @click="toggleEditModal()">
           Edit
         </button>
-        <button class="button is-danger">Delete</button>
+        <button class="button is-danger" @click="toggleDeleteModal()">
+          Delete
+        </button>
       </footer>
     </div>
   </div>
@@ -50,12 +52,22 @@ export default {
       try {
         await axios.get("http://localhost:3000/posts/" + this.$route.params.id).then((res) => {
           this.postInfo = res.data;
+          console.log("Post info:", this.postInfo);
         });
       } catch (error) {
         console.log(error);
       }
     },
+    toggleEditModal() {
+      this.$emit("openEditModal", this.postInfo.id);
+      console.log("Post edit id:" + this.postInfo.id);
+    },
+    toggleDeleteModal() {
+      this.$emit("openDeleteModal", this.postInfo.id);
+      console.log("Post delete id:" + this.postInfo.id);
+    },
   },
+
   mounted() {
     this.getPostDetailsInfo();
   },

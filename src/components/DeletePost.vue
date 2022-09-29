@@ -21,14 +21,14 @@ import axios from "axios";
 
 export default {
   name: "DeletePost",
-  props: { id: Number },
+  props: { item: Number },
   data() {
     return {};
   },
   methods: {
     async confirmDeletePost() {
       try {
-        await axios.delete("http://localhost:3000/posts/" + this.id).then((res) => {
+        await axios.delete("http://localhost:3000/posts/" + this.item).then((res) => {
           return res.data;
         });
         this.$emit("toggleDeleteModal");

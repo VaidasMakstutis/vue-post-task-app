@@ -28,7 +28,7 @@
             <div class="field">
               <label class="label">Post content</label>
               <div class="control">
-                <input
+                <textarea
                   class="input"
                   type="text"
                   placeholder="Post content"
@@ -51,18 +51,21 @@
   <script>
 
 import date from "../mixins/date";
+import axios from "axios";
   
   export default {
+    // props: {item: Object},
+    props: ["item"],
     name: "EditPost",
-    props: {id: Number},
     mixins: [date],
+
     data() {
       return {
         editData: {
-          id: Number,
+          id: "",
           title: "",
-          body: "",
           author: "",
+          body: "",
           created_at: "",
           updated_at: 0,
         },
@@ -88,11 +91,15 @@ import date from "../mixins/date";
       async submitEditPost() {
         try {
             this.editData.updated_at = new Date();
-            await axios.put(`http://localhost:3000/posts/$id`, data).then((res) => {
-              console.log("Edit modal data:", res);
-              this.editData.id,
-              this.editData
-            });
+            const putPost = await axios.put("http://localhost:3000/posts/" + this.item.id,
+            {
+              id: this.item.id,
+              title: this.item.title,
+              author: this.item.author,
+              body: this.item.body,
+              updated_at: this.item.updated_at,
+            }
+            );
             this.$emit("toggleEditModal");
             this.$router.go();
         } catch (error) {
@@ -101,8 +108,8 @@ import date from "../mixins/date";
       },
     },
     mounted() {
-        this.editData = this.id;
-    }
+        this.editData = this.item;
+    },
   };
   </script>
   

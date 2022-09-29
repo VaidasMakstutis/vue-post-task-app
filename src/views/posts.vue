@@ -2,10 +2,10 @@
   <div>
     <div class="top">
       <NewPost v-if="showPostModal" @close="showPostModal = false" :postData="postData" />
-      <EditPost v-if="showEditModal" :id="selectedEditItem" @close="showEditModal = false" />
+      <EditPost v-if="showEditModal" :item="selectedEditItem" @close="showEditModal = false" />
       <DeletePost
         v-if="showDeleteModal"
-        :id="selectedDeleteItem"
+        :item="selectedDeleteItem"
         @close="showDeleteModal = false"
       />
       <button class="button is-primary" @click="showPostModal = true">
@@ -89,12 +89,12 @@ export default {
         console.log(error);
       }
     },
-    toggleEditModal(postId) {
-      this.selectedEditItem = parseInt(postId);
+    toggleEditModal(item) {
+      this.selectedEditItem = item;
       this.showEditModal = !this.showEditModal;
     },
-    toggleDeleteModal(postId) {
-      this.selectedDeleteItem = parseInt(postId);
+    toggleDeleteModal(item) {
+      this.selectedDeleteItem = parseInt(item);
       this.showDeleteModal = !this.showDeleteModal;
     },
   },

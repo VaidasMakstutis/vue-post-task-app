@@ -28,7 +28,7 @@
           <div class="field">
             <label class="label">Post content</label>
             <div class="control">
-              <input
+              <textarea
                 class="input"
                 type="text"
                 placeholder="Post content"
@@ -81,6 +81,7 @@ export default {
   },
 
   methods: {
+
     formValidation() {
       const letters  = /^[a-zA-Z]+$/;
       this.errors = [];
