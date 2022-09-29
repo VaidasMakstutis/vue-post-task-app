@@ -28,9 +28,7 @@
             <div class="field">
               <label class="label">Post content</label>
               <div class="control">
-                <textarea
-                  class="input"
-                  type="text"
+                <textarea class="textarea" 
                   placeholder="Post content"
                   v-model="editData.body"
                 />

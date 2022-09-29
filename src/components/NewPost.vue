@@ -28,11 +28,9 @@
           <div class="field">
             <label class="label">Post content</label>
             <div class="control">
-              <textarea
-                class="input"
-                type="text"
-                placeholder="Post content"
-                v-model="data.body"
+              <textarea class="textarea" 
+                  placeholder="Post content"
+                  v-model="data.body"
               />
             </div>
           </div>
@@ -123,4 +121,5 @@ export default {
   margin: 10px;
   background-color: #48c78e;
 }
+
 </style>
