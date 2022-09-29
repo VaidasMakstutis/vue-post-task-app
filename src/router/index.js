@@ -6,10 +6,6 @@ import details from "@/views/details";
 
 Vue.use(Router);
 
-const ROUTE_NAME = {
-  DETAILS: "details",
-};
-
 export default new Router({
   routes: [
     {
@@ -18,7 +14,7 @@ export default new Router({
       component: posts,
     },
     {
-      path: "/" + ROUTE_NAME.DETAILS + "/:id",
+      path: "/" + "details" + "/:id",
       name: "details",
       component: details,
       props: true,
@@ -30,5 +26,3 @@ export default new Router({
     },
   ],
 });
-
-export { ROUTE_NAME };
