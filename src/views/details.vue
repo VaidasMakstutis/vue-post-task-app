@@ -5,9 +5,8 @@
       v-if="showDeleteModal"
       :item="selectedDeleteItem"
       @close="showDeleteModal = false"
-      @reload="goToHomePage()"
     />
-    <div class="container">
+    <div class="card-container">
       <div class="card">
         <header class="card-header">
           <p class="card-header-title">{{ item.title }}</p>
@@ -80,9 +79,6 @@ export default {
       this.selectedDeleteItem = parseInt(item.id);
       this.showDeleteModal = !this.showDeleteModal;
     },
-    goToHomePage() {
-      this.$router.push({ name: "posts-list" });
-    },
   },
 
   mounted() {
@@ -92,7 +88,7 @@ export default {
 </script>
 
 <style>
-.container {
+.card-container {
   display: flex;
   flex-direction: row;
   justify-content: center;

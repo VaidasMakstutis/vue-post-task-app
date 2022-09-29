@@ -68,7 +68,7 @@ export default {
         author: null,
         body: null,
         created_at: new Date(),
-        updated_at: 0,
+        updated_at: "",
       },
       showPostModal: false,
       showEditModal: false,

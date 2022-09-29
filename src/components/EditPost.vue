@@ -65,7 +65,7 @@ import axios from "axios";
           author: "",
           body: "",
           created_at: "",
-          updated_at: 0,
+          updated_at: "",
         },
         errors: [],
       };
@@ -99,10 +99,11 @@ import axios from "axios";
             }
             );
             this.$emit("toggleEditModal");
+            this.$router.push({ name: "posts-list" }).catch(() => {});
             this.$router.go();
-        } catch (error) {
-          console.log(error);
-        }
+          } catch (error) {
+            console.log(error);
+          }
       },
     },
     mounted() {

@@ -14,7 +14,7 @@ export default new Router({
       component: posts,
     },
     {
-      path: "/" + "details" + "/:id",
+      path: "/details/:id",
       name: "details",
       component: details,
       props: true,

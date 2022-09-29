@@ -29,10 +29,11 @@ export default {
     async confirmDeletePost() {
       try {
         await axios.delete("http://localhost:3000/posts/" + this.item).then((res) => {
+          this.$router.push({ name: "posts-list" }).catch(() => {});
+          this.$router.go();
           return res.data;
         });
         this.$emit("toggleDeleteModal");
-        this.$router.go();
       } catch (error) {
         console.log(error);
       }
