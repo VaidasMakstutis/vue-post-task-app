@@ -30,7 +30,6 @@
 
 <script>
 import date from "../mixins/date";
-import { ROUTE_NAME } from "@/router/index.js";
 
 export default {
   props: ["post"],
@@ -39,7 +38,7 @@ export default {
 
   methods: {
     getPostDetails(id) {
-      return { name: ROUTE_NAME.DETAILS, params: { id: id } };
+      return { name: "details", params: { id: id } };
     },
     toggleEditModal() {
       this.$emit("openEditModal", this.post);

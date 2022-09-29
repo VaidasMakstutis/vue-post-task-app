@@ -35,11 +35,10 @@
     },
     {
       "id": 3,
-      "title": "Fourth test",
-      "body": "Fourth test body",
+      "title": "Fourth test 44",
       "author": "John",
-      "created_at": "20220922",
-      "updated_at": "20220923"
+      "body": "Fourth test body 44",
+      "updated_at": "2022-09-29T10:24:20.155Z"
     },
     {
       "id": 4,
@@ -54,7 +53,7 @@
       "title": "Sixth testVV",
       "author": "Bruce",
       "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque risus mi, tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum felis venenatis efficitur. Aenean ac eleifend lacus, in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.",
-      "updated_at": "2022-09-29T09:06:02.188Z"
+      "updated_at": "2022-09-29T10:35:51.295Z"
     },
     {
       "id": 6,
@@ -63,22 +62,6 @@
       "author": "John",
       "created_at": "20220922",
       "updated_at": ""
-    },
-    {
-      "title": "dfd",
-      "author": "zzz",
-      "body": "aaa",
-      "created_at": "2022-09-29T09:04:41.983Z",
-      "updated_at": 0,
-      "id": 7
-    },
-    {
-      "title": "ttt",
-      "author": "John",
-      "body": "ffghf",
-      "created_at": "2022-09-29T09:04:46.685Z",
-      "updated_at": 0,
-      "id": 8
     }
   ]
 }
