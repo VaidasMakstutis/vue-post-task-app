@@ -23,7 +23,9 @@
       <button class="button is-success" @click="toggleEditModal()">
         Edit
       </button>
-      <button class="button is-danger" @click="toggleDeleteModal()">Delete</button>
+      <button class="button is-danger" @click="toggleDeleteModal()">
+        Delete
+      </button>
     </footer>
   </div>
 </template>
@@ -36,6 +38,10 @@ export default {
   mixins: [date],
   name: "detail",
 
+  data() {
+    return {};
+  },
+
   methods: {
     getPostDetails(id) {
       return { name: "details", params: { id: id } };
@@ -45,12 +51,13 @@ export default {
     },
     toggleDeleteModal() {
       this.$emit("openDeleteModal", this.post.id);
+      // console.log("This post id:", this.post.id);
     },
   },
 };
 </script>
 
-<style>
+<style scoped>
 .card {
   margin: 15px;
 }

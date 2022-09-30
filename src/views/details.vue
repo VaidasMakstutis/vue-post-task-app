@@ -6,6 +6,12 @@
       :item="selectedDeleteItem"
       @close="showDeleteModal = false"
     />
+    <Notification
+      v-if="notificationMsg != ''"
+      :message="notificationMsg"
+      :type="notificationStatus"
+      @closeNotification="closeNotification()"
+    />
     <div class="card-container">
       <div class="card">
         <header class="card-header">
@@ -46,17 +52,20 @@ import date from "../mixins/date";
 import axios from "axios";
 import EditPost from "../components/EditPost.vue";
 import DeletePost from "../components/DeletePost.vue";
+import Notification from "../components/Notification.vue";
 
 export default {
   name: "detail",
   mixins: [date],
-  components: { EditPost, DeletePost },
+  components: { EditPost, DeletePost, Notification },
 
   data() {
     return {
       item: {},
       showEditModal: false,
       showDeleteModal: false,
+      notificationMsg: "",
+      notificationStatus: "",
     };
   },
 
@@ -87,10 +96,22 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .card-container {
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.card {
+  margin: 15px;
+}
+.card-header {
+  background-color: #00d1b2;
+  font-size: 20px;
+}
+.card-header-title {
+  display: flex;
   justify-content: center;
   align-items: center;
 }
@@ -103,6 +124,10 @@ export default {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  padding: 5px;
+}
+button {
+  margin: 5px;
 }
 button a {
   color: #fff;

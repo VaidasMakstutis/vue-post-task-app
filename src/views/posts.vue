@@ -2,11 +2,23 @@
   <div>
     <div class="top">
       <NewPost v-if="showPostModal" @close="showPostModal = false" :postData="postData" />
-      <EditPost v-if="showEditModal" :item="selectedEditItem" @close="showEditModal = false" />
+      <EditPost
+        v-if="showEditModal"
+        :item="selectedEditItem"
+        @close="showEditModal = false"
+        @openEditModal="toggleEditModal"
+      />
       <DeletePost
         v-if="showDeleteModal"
         :item="selectedDeleteItem"
         @close="showDeleteModal = false"
+        @delete-post="deletePost"
+      />
+      <Notification
+        v-if="notificationMsg != ''"
+        :message="notificationMsg"
+        :type="notificationStatus"
+        @closeNotification="closeNotification()"
       />
       <button class="button is-primary" @click="showPostModal = true">
         Create New Post
@@ -47,6 +59,7 @@ import axios from "axios";
 import NewPost from "../components/NewPost.vue";
 import EditPost from "../components/EditPost.vue";
 import DeletePost from "../components/DeletePost.vue";
+import Notification from "../components/Notification.vue";
 import postCard from "./postCard.vue";
 
 export default {
@@ -56,6 +69,7 @@ export default {
     EditPost,
     DeletePost,
     postCard,
+    Notification,
   },
 
   // state
@@ -70,6 +84,8 @@ export default {
         created_at: new Date(),
         updated_at: "",
       },
+      notificationMsg: "",
+      notificationStatus: "",
       showPostModal: false,
       showEditModal: false,
       showDeleteModal: false,
@@ -89,6 +105,7 @@ export default {
         console.log(error);
       }
     },
+
     toggleEditModal(item) {
       this.selectedEditItem = item;
       this.showEditModal = !this.showEditModal;
@@ -96,6 +113,21 @@ export default {
     toggleDeleteModal(item) {
       this.selectedDeleteItem = parseInt(item);
       this.showDeleteModal = !this.showDeleteModal;
+    },
+
+    async deletePost(id) {
+      console.log("testas is axios delete");
+      try {
+        await axios.delete("http://localhost:3000/posts/" + id).then(() => {
+          console.log("Delete post:", id);
+          this.$router.go();
+        });
+        this.notificationMsg = "Post has been deleted succesfully!";
+        this.notificationStatus = "success";
+        this.$emit("toggleDeleteModal");
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 
@@ -105,7 +137,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .top {
   display: flex;
   flex-direction: row;
