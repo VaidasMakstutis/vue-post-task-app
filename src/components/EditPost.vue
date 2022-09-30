@@ -14,6 +14,11 @@
                 <li v-for="error in errors" :key="error">{{ error }}</li>
               </ul>
             </p>
+              <Notification
+                v-if="notificationMsg != ''"
+                :message="notificationMsg"
+                :type="notificationStatus"
+              />
             <div class="field">
               <label class="label">Title</label>
               <div class="control">
@@ -50,9 +55,10 @@
 
 import date from "../mixins/date";
 import axios from "axios";
+import Notification from "./Notification.vue";
   
   export default {
-    // props: {item: Object},
+    components: { Notification },
     props: ["item"],
     name: "EditPost",
     mixins: [date],
@@ -68,6 +74,8 @@ import axios from "axios";
           updated_at: "",
         },
         errors: [],
+        notificationMsg: "",
+        notificationStatus: "",
       };
     },
   
@@ -98,9 +106,11 @@ import axios from "axios";
               updated_at: this.item.updated_at,
             }
             );
+            this.notificationMsg = "Post has been edited succesfully!";
+            this.notificationStatus = "success";
+            this.$router.push({ name: "posts-list" });
             this.$emit("toggleEditModal");
-            this.$router.push({ name: "posts-list" }).catch(() => {});
-            this.$router.go();
+            // this.$router.go();
           } catch (error) {
             console.log(error);
           }
@@ -112,7 +122,7 @@ import axios from "axios";
   };
   </script>
   
-  <style>
+  <style scoped>
   .errors {
     padding: 20px;
     margin: 10px;

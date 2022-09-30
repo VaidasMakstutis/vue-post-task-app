@@ -115,7 +115,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .errors {
   padding: 20px;
   margin: 10px;

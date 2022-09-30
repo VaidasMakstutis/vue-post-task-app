@@ -16,7 +16,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .page-not-found-number {
   font-size: 80px;
   font-weight: 700;
