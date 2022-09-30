@@ -6,8 +6,15 @@
         <p class="modal-card-title">Are you sure that you want to delete this post?</p>
         <button class="delete" aria-label="close" @click="$emit('close')"></button>
       </header>
+      <p>
+        <Notification
+          v-if="notificationMsg != ''"
+          :message="notificationMsg"
+          :type="notificationStatus"
+        />
+      </p>
       <footer class="modal-card-foot">
-        <button type="submit" class="button is-success" @click="confirmDeletePost()">
+        <button class="button is-success" @click="$emit('delete-post', item)">
           Confirm delete
         </button>
         <button class="button" @click="$emit('close')">Cancel</button>
@@ -17,29 +24,20 @@
 </template>
 
 <script>
-import axios from "axios";
+import Notification from "./Notification.vue";
+import postCard from "../views/postCard.vue";
 
 export default {
+  components: { Notification, postCard },
   name: "DeletePost",
   props: { item: Number },
   data() {
-    return {};
-  },
-  methods: {
-    async confirmDeletePost() {
-      try {
-        await axios.delete("http://localhost:3000/posts/" + this.item).then((res) => {
-          this.$router.push({ name: "posts-list" }).catch(() => {});
-          this.$router.go();
-          return res.data;
-        });
-        this.$emit("toggleDeleteModal");
-      } catch (error) {
-        console.log(error);
-      }
-    },
+    return {
+      notificationMsg: "",
+      notificationStatus: "",
+    };
   },
 };
 </script>
 
-<style></style>
+<style scoped></style>
