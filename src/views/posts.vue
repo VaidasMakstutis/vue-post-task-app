@@ -1,18 +1,23 @@
 <template>
   <div>
     <div class="top">
-      <NewPost v-if="showPostModal" @close="showPostModal = false" :postData="postData" />
-      <EditPost
+      <PostModal
+        v-if="showPostModal"
+        @close="showPostModal = false"
+        :postData="postData"
+      />
+      <EditModal
         v-if="showEditModal"
         :item="selectedEditItem"
         @close="showEditModal = false"
         @openEditModal="toggleEditModal"
       />
-      <DeletePost
+      <DeleteModal
         v-if="showDeleteModal"
         :item="selectedDeleteItem"
         @close="showDeleteModal = false"
-        @delete-post="deletePost"
+        @openDeleteModal="toggleDeleteModal"
+        @deletePost="deletePost"
       />
       <Notification
         v-if="notificationMsg != ''"
@@ -56,20 +61,20 @@
 
 <script>
 import axios from "axios";
-import NewPost from "../components/NewPost.vue";
-import EditPost from "../components/EditPost.vue";
-import DeletePost from "../components/DeletePost.vue";
+import PostModal from "../components/PostModal.vue";
+import EditModal from "../components/EditModal.vue";
+import DeleteModal from "../components/DeleteModal.vue";
 import Notification from "../components/Notification.vue";
-import postCard from "./postCard.vue";
+import PostCard from "./PostCard.vue";
 
 export default {
   name: "posts-list",
   components: {
-    NewPost,
-    EditPost,
-    DeletePost,
-    postCard,
-    Notification,
+    PostModal,
+    EditModal,
+    DeleteModal,
+    PostCard,
+    Notification
   },
 
   // state
@@ -82,7 +87,7 @@ export default {
         author: null,
         body: null,
         created_at: new Date(),
-        updated_at: "",
+        updated_at: ""
       },
       notificationMsg: "",
       notificationStatus: "",
@@ -90,7 +95,7 @@ export default {
       showEditModal: false,
       showDeleteModal: false,
       selectedDeleteItem: null,
-      selectedEditItem: null,
+      selectedEditItem: null
     };
   },
 
@@ -98,9 +103,24 @@ export default {
     async getPosts() {
       let query = this.searchValue ? "?q=" + this.searchValue : "";
       try {
-        await axios.get("http://localhost:3000/posts" + query).then((res) => {
+        await axios.get("http://localhost:3000/posts" + query).then(res => {
           this.posts = res.data;
         });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async deletePost(id) {
+      console.log("testas is axios delete");
+      try {
+        await axios.delete("http://localhost:3000/posts/" + id).then(() => {
+          console.log("Delete post:", id);
+          this.$router.go();
+        });
+        this.notificationMsg = "Post has been deleted succesfully!";
+        this.notificationStatus = "is-success";
+        this.$emit("toggleDeleteModal");
       } catch (error) {
         console.log(error);
       }
@@ -113,27 +133,12 @@ export default {
     toggleDeleteModal(item) {
       this.selectedDeleteItem = parseInt(item);
       this.showDeleteModal = !this.showDeleteModal;
-    },
-
-    async deletePost(id) {
-      console.log("testas is axios delete");
-      try {
-        await axios.delete("http://localhost:3000/posts/" + id).then(() => {
-          console.log("Delete post:", id);
-          this.$router.go();
-        });
-        this.notificationMsg = "Post has been deleted succesfully!";
-        this.notificationStatus = "success";
-        this.$emit("toggleDeleteModal");
-      } catch (error) {
-        console.log(error);
-      }
-    },
+    }
   },
 
   mounted() {
     this.getPosts();
-  },
+  }
 };
 </script>
 

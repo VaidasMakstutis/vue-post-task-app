@@ -1,10 +1,17 @@
 <template>
   <div>
-    <EditPost v-if="showEditModal" :item="selectedEditItem" @close="showEditModal = false" />
-    <DeletePost
+    <EditModal
+      v-if="showEditModal"
+      :item="selectedEditItem"
+      @close="showEditModal = false"
+      @openEditModal="toggleDeleteModal"
+    />
+    <DeleteModal
       v-if="showDeleteModal"
       :item="selectedDeleteItem"
       @close="showDeleteModal = false"
+      @openDeleteModal="toggleDeleteModal"
+      @deletePost="deletePost"
     />
     <Notification
       v-if="notificationMsg != ''"
@@ -50,14 +57,14 @@
 <script>
 import date from "../mixins/date";
 import axios from "axios";
-import EditPost from "../components/EditPost.vue";
-import DeletePost from "../components/DeletePost.vue";
+import EditModal from "../components/EditModal.vue";
+import DeleteModal from "../components/DeleteModal.vue";
 import Notification from "../components/Notification.vue";
 
 export default {
   name: "detail",
   mixins: [date],
-  components: { EditPost, DeletePost, Notification },
+  components: { EditModal, DeleteModal, Notification },
 
   data() {
     return {
@@ -66,33 +73,56 @@ export default {
       showDeleteModal: false,
       notificationMsg: "",
       notificationStatus: "",
+      selectedDeleteItem: null,
+      selectedEditItem: null
     };
   },
 
   methods: {
     async getPostDetailsInfo() {
       try {
-        await axios.get("http://localhost:3000/posts/" + this.$route.params.id).then((res) => {
-          this.item = res.data;
-          console.log("Item info:", this.item);
-        });
+        await axios
+          .get("http://localhost:3000/posts/" + this.$route.params.id)
+          .then(res => {
+            this.item = res.data;
+            console.log("Item info:", this.item);
+          });
       } catch (error) {
         console.log(error);
       }
     },
+
+    async deletePost() {
+      try {
+        await axios
+          .delete("http://localhost:3000/posts/" + this.item.id)
+          .then(() => {
+            console.log("Delete post from details page:", this.item.id);
+          });
+        this.notificationMsg = "Post has been deleted succesfully!";
+        this.notificationStatus = "is-success";
+        this.$emit("toggleDeleteModal");
+        this.$router.push({ name: "posts-list" });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
     toggleEditModal(item) {
       this.selectedEditItem = item;
+      console.log("Selected edit item from details page:", item);
       this.showEditModal = !this.showEditModal;
     },
     toggleDeleteModal(item) {
-      this.selectedDeleteItem = parseInt(item.id);
+      this.selectedDeleteItem = item.id;
+      console.log("Selected delete item id from details page:", item.id);
       this.showDeleteModal = !this.showDeleteModal;
-    },
+    }
   },
 
   mounted() {
     this.getPostDetailsInfo();
-  },
+  }
 };
 </script>
 

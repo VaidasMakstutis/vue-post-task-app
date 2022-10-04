@@ -1,8 +1,8 @@
 import Vue from "vue";
 import Router from "vue-router";
-import posts from "@/views/posts";
-import notFound from "@/views/notFound";
-import details from "@/views/details";
+import Posts from "@/views/Posts";
+import PageNotFound from "@/views/PageNotFound";
+import Details from "@/views/Details";
 
 Vue.use(Router);
 
@@ -11,18 +11,18 @@ export default new Router({
     {
       path: "/",
       name: "posts-list",
-      component: posts,
+      component: Posts
     },
     {
       path: "/details/:id",
       name: "details",
-      component: details,
-      props: true,
+      component: Details,
+      props: true
     },
     {
       path: "*",
       name: "not-found",
-      component: notFound,
-    },
-  ],
+      component: PageNotFound
+    }
+  ]
 });
