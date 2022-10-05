@@ -1,7 +1,6 @@
 <template>
   <article :class="['message is-success', type]">
     <div class="notification is-success">
-      <button class="delete" @click="$emit('closeNotification')"></button>
       <div class="notification-body">
         {{ message }}
       </div>

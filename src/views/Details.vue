@@ -11,13 +11,11 @@
       :item="selectedDeleteItem"
       @close="showDeleteModal = false"
       @openDeleteModal="toggleDeleteModal"
-      @deletePost="deletePost"
     />
     <Notification
       v-if="notificationMsg != ''"
       :message="notificationMsg"
       :type="notificationStatus"
-      @closeNotification="closeNotification()"
     />
     <div class="card-container">
       <div class="card">
@@ -72,51 +70,31 @@ export default {
       notificationMsg: "",
       notificationStatus: "",
       selectedDeleteItem: null,
-      selectedEditItem: null
+      selectedEditItem: null,
     };
   },
   methods: {
     async getPostDetailsInfo() {
       try {
-        await axios
-          .get("http://localhost:3000/posts/" + this.$route.params.id)
-          .then(res => {
-            this.item = res.data;
-            console.log("Item info:", this.item);
-          });
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    async deletePost() {
-      try {
-        await axios
-          .delete("http://localhost:3000/posts/" + this.item.id)
-          .then(() => {
-            console.log("Delete post from details page:", this.item.id);
-          });
-        this.notificationMsg = "Post has been deleted succesfully!";
-        this.notificationStatus = "is-success";
-        this.$emit("toggleDeleteModal");
-        this.$router.push({ name: "posts-list" });
+        await axios.get("http://localhost:3000/posts/" + this.$route.params.id).then((res) => {
+          this.item = res.data;
+        });
       } catch (error) {
         console.log(error);
       }
     },
     toggleEditModal(item) {
       this.selectedEditItem = item;
-      console.log("Selected edit item from details page:", item);
       this.showEditModal = !this.showEditModal;
     },
     toggleDeleteModal(item) {
       this.selectedDeleteItem = item.id;
-      console.log("Selected delete item id from details page:", item.id);
       this.showDeleteModal = !this.showDeleteModal;
-    }
+    },
   },
   mounted() {
     this.getPostDetailsInfo();
-  }
+  },
 };
 </script>
 

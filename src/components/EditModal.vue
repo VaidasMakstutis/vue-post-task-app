@@ -96,24 +96,22 @@ import Notification from "./Notification.vue";
   
       async submitEditPost() {
         try {
-            this.editData.updated_at = new Date();
-            const putPost = await axios.put("http://localhost:3000/posts/" + this.item.id,
-            {
-              id: this.item.id,
-              title: this.item.title,
-              author: this.item.author,
-              body: this.item.body,
-              updated_at: this.item.updated_at,
-            }
-            );
-            this.notificationMsg = "Post has been edited succesfully!";
-            this.notificationStatus = "success";
-            this.$router.push({ name: "posts-list" });
-            this.$emit("toggleEditModal");
-            // this.$router.go();
-          } catch (error) {
-            console.log(error);
-          }
+          this.editData.updated_at = new Date();
+            await axios.put("http://localhost:3000/posts/" + this.item.id, this.item).then(() => {
+              this.notificationMsg = "Post has been edited succesfully!";
+              this.notificationStatus = "success";
+              setTimeout(() => {
+                if (this.$router.currentRoute.name == "details") {
+                  this.$router.push({ name: "posts-list" });
+                } else {
+                  this.$router.go();
+                }
+              }, 1000);
+              this.$emit("toggleEditModal");
+            });
+        } catch (error) {
+          console.log(error);
+        }
       },
     },
     mounted() {

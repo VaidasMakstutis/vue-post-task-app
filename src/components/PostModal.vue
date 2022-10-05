@@ -48,7 +48,7 @@
         </form>
       </section>
       <footer class="modal-card-foot">
-        <button type="submit" class="button is-success" @click="formValidation()">
+        <button type="submit" class="button is-primary" @click="formValidation()">
           Create
         </button>
         <button class="button" @click="$emit('close')">Cancel</button>
