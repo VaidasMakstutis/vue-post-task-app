@@ -4,7 +4,7 @@ export default {
   methods: {
     formatDate(date) {
       if (date) {
-        return moment(String(date)).format("YYYY-MM-DD");
+        return moment(date).format("YYYY-MM-DD");
       }
     },
   },
