@@ -1,23 +1,20 @@
 <template>
   <div>
     <div class="top">
-      <PostModal
-        v-if="showPostModal"
-        @close="showPostModal = false"
-        :postData="postData"
-      />
+      <PostModal v-if="showPostModal" @close="showPostModal = false" :postData="postData" />
       <EditModal
         v-if="showEditModal"
         :item="selectedEditItem"
         @close="showEditModal = false"
         @openEditModal="toggleEditModal"
+        @closeNotification="closeNotification()"
       />
       <DeleteModal
         v-if="showDeleteModal"
         :item="selectedDeleteItem"
         @close="showDeleteModal = false"
         @openDeleteModal="toggleDeleteModal"
-        @deletePost="deletePost"
+        @closeNotification="closeNotification()"
       />
       <Notification
         v-if="notificationMsg != ''"
@@ -26,7 +23,7 @@
         @closeNotification="closeNotification()"
       />
       <button class="button is-primary" @click="showPostModal = true">
-        Create New Post
+        New Post
       </button>
       <div class="level-item">
         <div class="field has-addons">
@@ -73,7 +70,7 @@ export default {
     EditModal,
     DeleteModal,
     PostCard,
-    Notification
+    Notification,
   },
   // state
   data() {
@@ -85,7 +82,7 @@ export default {
         author: null,
         body: null,
         created_at: new Date(),
-        updated_at: ""
+        updated_at: "",
       },
       notificationMsg: "",
       notificationStatus: "",
@@ -93,30 +90,16 @@ export default {
       showEditModal: false,
       showDeleteModal: false,
       selectedDeleteItem: null,
-      selectedEditItem: null
+      selectedEditItem: null,
     };
   },
   methods: {
     async getPosts() {
       let query = this.searchValue ? "?q=" + this.searchValue : "";
       try {
-        await axios.get("http://localhost:3000/posts" + query).then(res => {
+        await axios.get("http://localhost:3000/posts" + query).then((res) => {
           this.posts = res.data;
         });
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    async deletePost(id) {
-      console.log("testas is axios delete");
-      try {
-        await axios.delete("http://localhost:3000/posts/" + id).then(() => {
-          console.log("Delete post:", id);
-          this.$router.go();
-        });
-        this.notificationMsg = "Post has been deleted succesfully!";
-        this.notificationStatus = "is-success";
-        this.$emit("toggleDeleteModal");
       } catch (error) {
         console.log(error);
       }
@@ -128,11 +111,11 @@ export default {
     toggleDeleteModal(item) {
       this.selectedDeleteItem = parseInt(item);
       this.showDeleteModal = !this.showDeleteModal;
-    }
+    },
   },
   mounted() {
     this.getPosts();
-  }
+  },
 };
 </script>
 
@@ -145,7 +128,7 @@ export default {
   margin-bottom: 15px;
 }
 .level-item {
-  margin-left: 5px;
+  margin-left: 8px;
 }
 .bottom {
   display: flex;

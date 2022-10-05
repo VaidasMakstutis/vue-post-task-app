@@ -48,9 +48,8 @@ export default {
     },
     toggleDeleteModal() {
       this.$emit("openDeleteModal", this.post.id);
-      // console.log("This post id:", this.post.id);
-    }
-  }
+    },
+  },
 };
 </script>
 
