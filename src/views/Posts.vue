@@ -43,7 +43,7 @@
       </div>
       <div class="posts-list-content">
         <div class="container">
-          <postCard
+          <PostCard
             v-for="post in posts"
             :key="post.id"
             :post="post"
@@ -51,6 +51,16 @@
             @openEditModal="toggleEditModal"
           />
         </div>
+      </div>
+    </div>
+    <div class="pagination-wrapper">
+      <div class="pagination">
+        <Pagination
+          :key="totalPostsQty"
+          :totalCount="totalPostsQty"
+          :currentPage="currentPage"
+          @pageChanged="onPageChange"
+        />
       </div>
     </div>
   </div>
@@ -63,6 +73,8 @@ import EditModal from "../components/EditModal.vue";
 import DeleteModal from "../components/DeleteModal.vue";
 import Notification from "../components/Notification.vue";
 import PostCard from "./PostCard.vue";
+import Pagination from "../components/Pagination.vue";
+
 export default {
   name: "posts-list",
   components: {
@@ -71,6 +83,7 @@ export default {
     DeleteModal,
     PostCard,
     Notification,
+    Pagination,
   },
   // state
   data() {
@@ -91,6 +104,9 @@ export default {
       showDeleteModal: false,
       selectedDeleteItem: null,
       selectedEditItem: null,
+      totalPostsQty: 0,
+      currentPage: 1,
+      totalPages: 0,
     };
   },
   methods: {
@@ -98,11 +114,15 @@ export default {
       let query = this.searchValue ? "?q=" + this.searchValue : "";
       try {
         await axios.get("http://localhost:3000/posts" + query).then((res) => {
+          console.log("Current page is:", this.currentPage);
+          this.currentPage;
           this.posts = res.data;
         });
       } catch (error) {
         console.log(error);
       }
+      this.totalPostsQty = this.posts.length;
+      console.log("Total posts qty is:", this.totalPostsQty);
     },
     toggleEditModal(item) {
       this.selectedEditItem = item;
@@ -112,9 +132,14 @@ export default {
       this.selectedDeleteItem = parseInt(item);
       this.showDeleteModal = !this.showDeleteModal;
     },
+    onPageChange(page) {
+      console.log("Page:", page);
+      this.currentPage = page ? page : 1;
+      this.getPosts();
+    },
   },
-  mounted() {
-    this.getPosts();
+  async created() {
+    await this.getPosts();
   },
 };
 </script>
@@ -146,8 +171,11 @@ export default {
   font-weight: 500;
   margin-top: 40px;
 }
-.container {
+.pagination-wrapper {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
 }
 </style>
