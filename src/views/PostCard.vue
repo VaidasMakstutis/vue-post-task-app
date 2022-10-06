@@ -9,7 +9,7 @@
         <div class="content" v-if="!post.updated_at">
           Created at: {{ formatDate(post.created_at) }}
         </div>
-        <div class="content" v-if="post.updated_at">
+        <div class="content updated" v-if="post.updated_at">
           Updated at: {{ formatDate(post.updated_at) }}
         </div>
       </div>
@@ -65,6 +65,12 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.updated {
+  padding: 5px;
+  background-color: #48c78e;
+  color: #fff;
+  border-radius: 5%;
 }
 .card-footer {
   padding: 5px;

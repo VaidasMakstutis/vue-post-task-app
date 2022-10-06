@@ -73,6 +73,10 @@ export default {
       type: Number,
       required: true,
     },
+    perPageQty: {
+      type: Number,
+      required: true,
+    },
   },
   data() {
     return {
@@ -88,15 +92,15 @@ export default {
     onClickLastPage() {
       this.$emit("pageChanged", this.pages);
     },
+    getPerPageQty() {
+      console.log("Qty of pages:", Math.ceil(this.totalPostsQty / this.perPageQty));
+      return Math.ceil(this.totalPostsQty / this.perPageQty);
+    },
     isPageActive(page) {
       return this.currentPage === page;
     },
     pageChanged(page) {
       this.$emit("pageChanged", page);
-    },
-    getQtyPerPage() {
-      console.log("Qty posts per page:", Math.ceil(this.totalPostsQty / 5));
-      return Math.ceil(this.totalPostsQty / 5);
     },
     onClickNextPage() {
       let page = this.current + 1;
@@ -125,7 +129,7 @@ export default {
     },
   },
   created() {
-    this.pages = this.getQtyPerPage();
+    this.pages = this.getPerPageQty();
   },
 };
 </script>

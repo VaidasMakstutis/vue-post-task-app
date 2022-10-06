@@ -38,11 +38,9 @@
       </div>
     </div>
     <div class="bottom">
-      <div v-if="!posts.length">
-        <span class="no-created-posts">No posts!</span>
-      </div>
       <div class="posts-list-content">
         <div class="container">
+          <h1 v-if="!posts.length" class="no-posts">No Posts!</h1>
           <PostCard
             v-for="post in posts"
             :key="post.id"
@@ -57,6 +55,7 @@
       <div class="pagination">
         <Pagination
           :key="totalPostsQty"
+          :perPageQty="perPageQty"
           :totalCount="totalPostsQty"
           :currentPage="currentPage"
           @pageChanged="onPageChange"
@@ -104,25 +103,31 @@ export default {
       showDeleteModal: false,
       selectedDeleteItem: null,
       selectedEditItem: null,
-      totalPostsQty: 0,
       currentPage: 1,
-      totalPages: 0,
+      perPageQty: 10,
+      totalPostsQty: 0,
     };
   },
   methods: {
     async getPosts() {
       let query = this.searchValue ? "?q=" + this.searchValue : "";
       try {
-        await axios.get("http://localhost:3000/posts" + query).then((res) => {
-          console.log("Current page is:", this.currentPage);
-          this.currentPage;
-          this.posts = res.data;
-        });
+        await axios
+          .get("http://localhost:3000/posts" + query, {
+            params: {
+              _limit: this.perPageQty,
+              _page: this.currentPage,
+            },
+          })
+          .then((res) => {
+            // this.currentPage;
+            this.posts = res.data;
+            this.totalPostsQty = parseInt(res.headers["x-total-count"]);
+            console.log("Total posts qty is:", this.totalPostsQty);
+          });
       } catch (error) {
         console.log(error);
       }
-      this.totalPostsQty = this.posts.length;
-      console.log("Total posts qty is:", this.totalPostsQty);
     },
     toggleEditModal(item) {
       this.selectedEditItem = item;
@@ -166,7 +171,7 @@ export default {
   justify-content: center;
   align-items: center;
 }
-.no-created-posts {
+.no-posts {
   font-size: 30px;
   font-weight: 500;
   margin-top: 40px;
