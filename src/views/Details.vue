@@ -31,7 +31,7 @@
             <div class="content" v-if="!item.updated_at">
               Created at: {{ formatDate(item.created_at) }}
             </div>
-            <div class="content" v-if="item.updated_at">
+            <div class="content updated" v-if="item.updated_at">
               Updated at: {{ formatDate(item.updated_at) }}
             </div>
           </div>
@@ -118,8 +118,15 @@ export default {
   align-items: center;
 }
 .post-content {
-  padding: 10px;
+  padding: 5px;
   background-color: rgb(235, 255, 252);
+  border-radius: 5%;
+}
+.updated {
+  padding: 5px;
+  background-color: #48c78e;
+  color: #fff;
+  border-radius: 5%;
 }
 .card-footer {
   display: flex;
