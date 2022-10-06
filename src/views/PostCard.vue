@@ -55,7 +55,7 @@ export default {
 
 <style scoped>
 .card {
-  margin: 15px;
+  margin: 25px;
 }
 .card-header {
   background-color: #00d1b2;

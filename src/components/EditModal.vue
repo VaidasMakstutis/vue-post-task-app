@@ -87,7 +87,7 @@ import Notification from "./Notification.vue";
           this.submitEditPost(this.editData);
         }
         if (!this.editData.title) {
-          this.errors.push("Name is required");
+          this.errors.push("Title is required");
         }
         if (!this.editData.body) {
           this.errors.push("Content is required");
@@ -124,7 +124,7 @@ import Notification from "./Notification.vue";
   .errors {
     padding: 20px;
     margin: 10px;
-    background-color: #48c78e;
+    background-color: #FFCCCB;
   }
   </style>
   

@@ -1,65 +1,50 @@
 <template>
-  <ul class="pagination-list">
-    <li class="pagination-item">
-      <button
-        type="button"
-        class="button is-link is-outlined"
-        @click="onClickFirstPage"
-        :disabled="isInFirstPage"
-      >
-        First
-      </button>
-    </li>
+  <div class="pagination-list">
+    <a
+      class="pagination-link button is-link is-outlined"
+      @click="onClickFirstPage"
+      :disabled="isInFirstPage"
+    >
+      First
+    </a>
 
-    <li class="pagination-item">
-      <button
-        type="button"
-        class="button is-link is-outlined"
-        @click="onClickPreviousPage"
-        :disabled="isInFirstPage"
-      >
-        Previous
-      </button>
-    </li>
+    <a
+      class="pagination-link button is-link is-outlined"
+      @click="onClickPreviousPage"
+      :disabled="isInFirstPage"
+    >
+      Previous
+    </a>
 
     <!-- Visible Buttons Start -->
 
-    <li v-for="page in pages" :key="page" class="pagination-item">
-      <button
-        type="button"
-        class="button is-link"
-        :class="{ active: isPageActive(page) }"
-        @click="pageChanged(page)"
-        :disabled="page.isDisabled"
-      >
-        {{ page }}
-      </button>
-    </li>
+    <a
+      class="pagination-link"
+      v-for="page in pages"
+      :key="page"
+      :class="{ active: isPageActive(page) }"
+      @click="pageChanged(page)"
+      >{{ page }}
+    </a>
 
     <!-- Visible Buttons End -->
 
-    <li class="pagination-item">
-      <button
-        type="button"
-        class="button is-link is-outlined"
-        @click="onClickNextPage"
-        :disabled="isInLastPage"
-      >
-        Next
-      </button>
-    </li>
+    <a
+      class="pagination-link button is-link is-outlined"
+      @click="onClickNextPage"
+      :disabled="isInLastPage"
+    >
+      Next
+    </a>
 
-    <li class="pagination-item">
-      <button
-        type="button"
-        class="button is-link is-outlined"
-        @click="onClickLastPage"
-        :disabled="isInLastPage"
-      >
-        Last
-      </button>
-    </li>
-  </ul>
+    <a
+      class="pagination-link button is-link is-outlined"
+      @click="onClickLastPage"
+      :disabled="isInLastPage"
+    >
+      Last
+    </a>
+  </div>
 </template>
 
 <script>
@@ -93,7 +78,6 @@ export default {
       this.$emit("pageChanged", this.pages);
     },
     getPerPageQty() {
-      console.log("Qty of pages:", Math.ceil(this.totalPostsQty / this.perPageQty));
       return Math.ceil(this.totalPostsQty / this.perPageQty);
     },
     isPageActive(page) {
@@ -122,10 +106,10 @@ export default {
 
   computed: {
     isInFirstPage() {
-      return this.currentPage === 1;
+      return this.current === 1;
     },
     isInLastPage() {
-      return this.currentPage === this.pages;
+      return this.current === this.pages;
     },
   },
   created() {
@@ -135,19 +119,8 @@ export default {
 </script>
 
 <style scoped>
-.pagination {
-  list-style-type: none;
-}
-
-.pagination-item {
-  display: inline-block;
-}
-
 .active {
   background-color: #4aae9b;
   color: #ffffff;
-}
-button {
-  margin: 5px;
 }
 </style>

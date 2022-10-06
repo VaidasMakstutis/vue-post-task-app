@@ -88,7 +88,7 @@ export default {
         this.submitNewPost(this.data);
       }
       if (!this.data.title) {
-        this.errors.push("Name is required");
+        this.errors.push("Title is required");
       }
       if (!this.data.body) {
         this.errors.push("Content is required");
@@ -119,7 +119,7 @@ export default {
 .errors {
   padding: 20px;
   margin: 10px;
-  background-color: #48c78e;
+  background-color: #FFCCCB;
 }
 
 </style>

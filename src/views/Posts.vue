@@ -32,9 +32,20 @@
             type="text"
             placeholder="Find a post"
             v-model="searchValue"
-            @input="getPosts"
+            @input="handleSearch"
           />
         </div>
+      </div>
+    </div>
+    <div class="pagination-wrapper">
+      <div class="pagination">
+        <Pagination
+          :key="totalPostsQty"
+          :perPageQty="perPageQty"
+          :totalCount="totalPostsQty"
+          :currentPage="currentPage"
+          @pageChanged="onPageChange"
+        />
       </div>
     </div>
     <div class="bottom">
@@ -104,11 +115,15 @@ export default {
       selectedDeleteItem: null,
       selectedEditItem: null,
       currentPage: 1,
-      perPageQty: 10,
+      perPageQty: 7,
       totalPostsQty: 0,
     };
   },
   methods: {
+    handleSearch() {
+      this.currentPage = 1;
+      this.getPosts();
+    },
     async getPosts() {
       let query = this.searchValue ? "?q=" + this.searchValue : "";
       try {
@@ -120,10 +135,8 @@ export default {
             },
           })
           .then((res) => {
-            // this.currentPage;
             this.posts = res.data;
             this.totalPostsQty = parseInt(res.headers["x-total-count"]);
-            console.log("Total posts qty is:", this.totalPostsQty);
           });
       } catch (error) {
         console.log(error);
@@ -138,7 +151,6 @@ export default {
       this.showDeleteModal = !this.showDeleteModal;
     },
     onPageChange(page) {
-      console.log("Page:", page);
       this.currentPage = page ? page : 1;
       this.getPosts();
     },
@@ -174,7 +186,7 @@ export default {
 .no-posts {
   font-size: 30px;
   font-weight: 500;
-  margin-top: 40px;
+  padding: 40px;
 }
 .pagination-wrapper {
   display: flex;
