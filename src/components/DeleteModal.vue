@@ -46,7 +46,7 @@ export default {
   methods: {
     async submitDeletePost() {
       try {
-        await axios.delete(this.$baseURL + "/posts/" + this.item).then(() => {
+        await axios.delete(this.$baseURL + "posts/" + this.item).then(() => {
           this.notificationMsg = "Post has been edited succesfully!";
           this.notificationStatus = "is-success";
           setTimeout(() => {

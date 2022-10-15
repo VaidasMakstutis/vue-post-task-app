@@ -8,14 +8,14 @@
       />
       <EditModal
         v-if="showEditModal"
-        :item="selectedEditItem"
+        :item="selectedItem"
         @close="showEditModal = false"
         @openEditModal="toggleEditModal"
         @closeNotification="closeNotification()"
       />
       <DeleteModal
         v-if="showDeleteModal"
-        :item="selectedDeleteItem"
+        :item="selectedItem"
         @close="showDeleteModal = false"
         @openDeleteModal="toggleDeleteModal"
         @closeNotification="closeNotification()"
@@ -118,8 +118,7 @@ export default {
       showPostModal: false,
       showEditModal: false,
       showDeleteModal: false,
-      selectedDeleteItem: null,
-      selectedEditItem: null,
+      selectedItem: null,
       currentPage: 1,
       perPageQty: 7,
       totalPostsQty: 0
@@ -134,7 +133,7 @@ export default {
       let query = this.searchValue ? "?q=" + this.searchValue : "";
       try {
         await axios
-          .get(this.$baseURL + "/posts" + query, {
+          .get(this.$baseURL + "posts" + query, {
             params: {
               _limit: this.perPageQty,
               _page: this.currentPage
@@ -149,11 +148,11 @@ export default {
       }
     },
     toggleEditModal(item) {
-      this.selectedEditItem = item;
+      this.selectedItem = item;
       this.showEditModal = !this.showEditModal;
     },
     toggleDeleteModal(item) {
-      this.selectedDeleteItem = parseInt(item);
+      this.selectedItem = parseInt(item);
       this.showDeleteModal = !this.showDeleteModal;
     },
     onPageChange(page) {

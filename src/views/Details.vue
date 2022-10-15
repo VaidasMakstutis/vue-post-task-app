@@ -2,13 +2,13 @@
   <div>
     <EditModal
       v-if="showEditModal"
-      :item="selectedEditItem"
+      :item="selectedItem"
       @close="showEditModal = false"
       @openEditModal="toggleDeleteModal"
     />
     <DeleteModal
       v-if="showDeleteModal"
-      :item="selectedDeleteItem"
+      :item="selectedItem"
       @close="showDeleteModal = false"
       @openDeleteModal="toggleDeleteModal"
     />
@@ -69,15 +69,14 @@ export default {
       showDeleteModal: false,
       notificationMsg: "",
       notificationStatus: "",
-      selectedDeleteItem: null,
-      selectedEditItem: null
+      selectedItem: null
     };
   },
   methods: {
     async getPostDetailsInfo() {
       try {
         await axios
-          .get(this.$baseURL + "/posts/" + this.$route.params.id)
+          .get(this.$baseURL + "posts/" + this.$route.params.id)
           .then(res => {
             this.item = res.data;
           });
@@ -86,11 +85,11 @@ export default {
       }
     },
     toggleEditModal(item) {
-      this.selectedEditItem = item;
+      this.selectedItem = item;
       this.showEditModal = !this.showEditModal;
     },
     toggleDeleteModal(item) {
-      this.selectedDeleteItem = item.id;
+      this.selectedItem = item.id;
       this.showDeleteModal = !this.showDeleteModal;
     }
   },

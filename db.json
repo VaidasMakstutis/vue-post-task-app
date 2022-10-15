@@ -13,9 +13,9 @@
   ],
   "posts": [
     {
-      "title": "First test 1",
+      "title": "First test 111",
       "author": "Bruce",
-      "body": "First test body 1",
+      "body": "First test body 111",
       "created_at": "2022-10-05",
       "updated_at": "2022-10-15",
       "id": 1
@@ -117,11 +117,11 @@
       "id": 13
     },
     {
-      "title": "14",
+      "title": "14 CC",
       "author": "Bruce",
-      "body": "dffghfgh",
+      "body": "dffghfgh CC",
       "created_at": "2022-10-05",
-      "updated_at": 0,
+      "updated_at": "2022-10-15",
       "id": 14
     },
     {
@@ -171,14 +171,6 @@
       "created_at": "2022-10-05",
       "updated_at": "2022-10-06",
       "id": 20
-    },
-    {
-      "title": "21",
-      "author": "John",
-      "body": "oooooppp",
-      "created_at": "2022-10-06",
-      "updated_at": 0,
-      "id": 21
     }
   ]
 }
