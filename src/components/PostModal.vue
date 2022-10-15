@@ -59,11 +59,9 @@
 
 <script>
 import axios from "axios";
-import date from "../mixins/date";
 
 export default {
   props: ["postData"],
-  mixins: [date],
 
   data() {
     return {
