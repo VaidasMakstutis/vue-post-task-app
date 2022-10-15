@@ -59,14 +59,17 @@ import Notification from "./Notification.vue";
   
   export default {
     components: { Notification },
-    props: ["item"],
+    props: {
+      item: {
+       type: Object
+      }
+    },
     name: "EditModal",
     mixins: [date],
 
     data() {
       return {
         editData: {
-          id: "",
           title: "",
           author: "",
           body: "",

@@ -36,7 +36,12 @@ import axios from "axios";
 export default {
   components: { Notification },
   name: "DeleteModal",
-  props: { item: Number },
+  props: {
+    item: {
+      type: Number,
+      required: true
+    }
+  },
   data() {
     return {
       notificationMsg: "",

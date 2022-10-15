@@ -61,7 +61,11 @@
 import axios from "axios";
 
 export default {
-  props: ["postData"],
+  props: {
+    postData: {
+      type: Object
+    }
+  },
 
   data() {
     return {

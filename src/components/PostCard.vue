@@ -33,7 +33,11 @@
 <script>
 import date from "../mixins/date";
 export default {
-  props: ["post"],
+  props: {
+    post: {
+      type: Object
+    }
+  },
   mixins: [date],
   name: "detail",
   data() {
