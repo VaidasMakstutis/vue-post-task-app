@@ -97,7 +97,7 @@ import Notification from "./Notification.vue";
       async submitEditPost() {
         try {
             this.editData.updated_at = this.formatDate(date);
-            await axios.put("http://localhost:3000/posts/" + this.item.id, this.item).then(() => {
+            await axios.put(this.$baseURL + "/posts/" + this.item.id, this.item).then(() => {
               this.notificationMsg = "Post has been edited succesfully!";
               this.notificationStatus = "success";
               setTimeout(() => {

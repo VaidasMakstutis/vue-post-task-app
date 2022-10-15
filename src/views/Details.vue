@@ -70,15 +70,17 @@ export default {
       notificationMsg: "",
       notificationStatus: "",
       selectedDeleteItem: null,
-      selectedEditItem: null,
+      selectedEditItem: null
     };
   },
   methods: {
     async getPostDetailsInfo() {
       try {
-        await axios.get("http://localhost:3000/posts/" + this.$route.params.id).then((res) => {
-          this.item = res.data;
-        });
+        await axios
+          .get(this.$baseURL + "/posts/" + this.$route.params.id)
+          .then(res => {
+            this.item = res.data;
+          });
       } catch (error) {
         console.log(error);
       }
@@ -90,11 +92,11 @@ export default {
     toggleDeleteModal(item) {
       this.selectedDeleteItem = item.id;
       this.showDeleteModal = !this.showDeleteModal;
-    },
+    }
   },
   mounted() {
     this.getPostDetailsInfo();
-  },
+  }
 };
 </script>
 

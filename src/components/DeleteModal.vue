@@ -6,7 +6,11 @@
         <p class="modal-card-title">
           Are you sure that you want to delete this post?
         </p>
-        <button class="delete" aria-label="close" @click="$emit('close')"></button>
+        <button
+          class="delete"
+          aria-label="close"
+          @click="$emit('close')"
+        ></button>
       </header>
       <p>
         <Notification
@@ -36,13 +40,13 @@ export default {
   data() {
     return {
       notificationMsg: "",
-      notificationStatus: "",
+      notificationStatus: ""
     };
   },
   methods: {
     async submitDeletePost() {
       try {
-        await axios.delete("http://localhost:3000/posts/" + this.item).then(() => {
+        await axios.delete(this.$baseURL + "/posts/" + this.item).then(() => {
           this.notificationMsg = "Post has been edited succesfully!";
           this.notificationStatus = "is-success";
           setTimeout(() => {
@@ -57,8 +61,8 @@ export default {
       } catch (error) {
         console.log(error);
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

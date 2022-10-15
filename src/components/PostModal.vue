@@ -101,7 +101,7 @@ export default {
 
     async submitNewPost(item) {
       try {
-        await axios.post("http://localhost:3000/posts", item)
+        await axios.post(this.$baseURL + "/posts", item)
           .then(() => {
             this.$router.go();
           });

@@ -134,7 +134,7 @@ export default {
       let query = this.searchValue ? "?q=" + this.searchValue : "";
       try {
         await axios
-          .get("http://localhost:3000/posts" + query, {
+          .get(this.$baseURL + "/posts" + query, {
             params: {
               _limit: this.perPageQty,
               _page: this.currentPage
