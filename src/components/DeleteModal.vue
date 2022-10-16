@@ -23,7 +23,9 @@
         <button class="button is-success" @click="submitDeletePost()">
           Confirm delete
         </button>
-        <button class="button" @click="$emit('close')">Cancel</button>
+        <button class="button" @click="$emit('close')">
+          Cancel
+        </button>
       </footer>
     </div>
   </div>
@@ -52,7 +54,7 @@ export default {
     async submitDeletePost() {
       try {
         await axios.delete(this.$baseURL + "posts/" + this.item).then(() => {
-          this.notificationMsg = "Post has been edited succesfully!";
+          this.notificationMsg = "Post has been deleted succesfully!";
           this.notificationStatus = "is-success";
           setTimeout(() => {
             if (this.$router.currentRoute.name == "details") {
@@ -64,6 +66,8 @@ export default {
           this.$emit("toggleDeleteModal");
         });
       } catch (error) {
+        this.notificationMsg = "Something went wrong!";
+        this.notificationStatus = "is-success";
         console.log(error);
       }
     }

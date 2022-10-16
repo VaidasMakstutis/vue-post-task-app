@@ -102,7 +102,7 @@ import Notification from "./Notification.vue";
             this.editData.updated_at = this.formatDate(date);
             await axios.put(this.$baseURL + "posts/" + this.item.id, this.item).then(() => {
               this.notificationMsg = "Post has been edited succesfully!";
-              this.notificationStatus = "success";
+              this.notificationStatus = "is-success";
               setTimeout(() => {
                 if (this.$router.currentRoute.name == "details") {
                   this.$router.push({ name: "posts-list" });
@@ -113,6 +113,8 @@ import Notification from "./Notification.vue";
               this.$emit("toggleEditModal");
             });
         } catch (error) {
+          this.notificationMsg = "Something went wrong!";
+          this.notificationStatus = "is-success";
           console.log(error);
         }
       },

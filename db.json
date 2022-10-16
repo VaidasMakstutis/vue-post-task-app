@@ -133,52 +133,12 @@
       "id": 15
     },
     {
-      "title": "16",
+      "title": "16 AA",
       "author": "Bruce",
-      "body": "dhghfthf",
+      "body": "dhghfthf AA",
       "created_at": "2022-10-05",
-      "updated_at": 0,
+      "updated_at": "2022-10-16",
       "id": 16
-    },
-    {
-      "title": "17",
-      "author": "John",
-      "body": "fghgjghjghkh",
-      "created_at": "2022-10-05",
-      "updated_at": 0,
-      "id": 17
-    },
-    {
-      "title": "18",
-      "author": "John",
-      "body": "aaaaaaaaaaaa",
-      "created_at": "2022-10-05",
-      "updated_at": 0,
-      "id": 18
-    },
-    {
-      "title": "19",
-      "author": "John",
-      "body": "ghghgjhhvj",
-      "created_at": "2022-10-05",
-      "updated_at": 0,
-      "id": 19
-    },
-    {
-      "title": "20 AA",
-      "author": "Bruce",
-      "body": "fghghg AA",
-      "created_at": "2022-10-15",
-      "updated_at": "2022-10-15",
-      "id": 20
-    },
-    {
-      "title": "21  BB",
-      "author": "John",
-      "body": "21  BB",
-      "created_at": "2022-10-15",
-      "updated_at": "2022-10-15",
-      "id": 21
     }
   ]
 }
