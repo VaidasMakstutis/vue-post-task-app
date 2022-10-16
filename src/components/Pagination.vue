@@ -3,7 +3,6 @@
     <a
       class="pagination-link button is-link is-outlined"
       @click="onClickFirstPage"
-      :disabled="isInFirstPage"
     >
       First
     </a>
@@ -11,7 +10,6 @@
     <a
       class="pagination-link button is-link is-outlined"
       @click="onClickPreviousPage"
-      :disabled="isInFirstPage"
     >
       Previous
     </a>
@@ -32,7 +30,6 @@
     <a
       class="pagination-link button is-link is-outlined"
       @click="onClickNextPage"
-      :disabled="isInLastPage"
     >
       Next
     </a>
@@ -40,7 +37,6 @@
     <a
       class="pagination-link button is-link is-outlined"
       @click="onClickLastPage"
-      :disabled="isInLastPage"
     >
       Last
     </a>
@@ -52,22 +48,22 @@ export default {
   props: {
     totalCount: {
       type: Number,
-      required: true,
+      required: true
     },
     currentPage: {
       type: Number,
-      required: true,
+      required: true
     },
     perPageQty: {
       type: Number,
-      required: true,
-    },
+      required: true
+    }
   },
   data() {
     return {
       current: 1,
       pages: 1,
-      totalPostsQty: this.totalCount,
+      totalPostsQty: this.totalCount
     };
   },
   methods: {
@@ -101,20 +97,11 @@ export default {
       }
       this.current = page;
       this.pageChanged(page);
-    },
-  },
-
-  computed: {
-    isInFirstPage() {
-      return this.current === 1;
-    },
-    isInLastPage() {
-      return this.current === this.pages;
-    },
+    }
   },
   created() {
     this.pages = this.getPerPageQty();
-  },
+  }
 };
 </script>
 
