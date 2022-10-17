@@ -66,11 +66,11 @@ export default {
           this.$emit("toggleDeleteModal");
         });
       } catch (error) {
-        this.notificationMsg = "Something went wrong!";
-        this.notificationStatus = "is-success";
-        console.log(error);
+           this.notificationMsg = "Something went wrong. Please try it again!";
+           this.notificationStatus = "is-success";
+           console.log(error);
       }
-    }
+    },
   }
 };
 </script>

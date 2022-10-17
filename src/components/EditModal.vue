@@ -113,9 +113,9 @@ import Notification from "./Notification.vue";
               this.$emit("toggleEditModal");
             });
         } catch (error) {
-          this.notificationMsg = "Something went wrong!";
-          this.notificationStatus = "is-success";
-          console.log(error);
+           this.notificationMsg = "Something went wrong. Please try it again!";
+           this.notificationStatus = "is-success";
+           console.log(error);
         }
       },
     },
