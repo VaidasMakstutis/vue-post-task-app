@@ -5,11 +5,12 @@ import App from "./App";
 import router from "./router";
 
 Vue.config.productionTip = false;
+Vue.prototype.$baseURL = "http://localhost:3000/";
 
 /* eslint-disable no-new */
 new Vue({
   el: "#app",
   router,
   components: { App },
-  template: "<App/>",
+  template: "<App/>"
 });

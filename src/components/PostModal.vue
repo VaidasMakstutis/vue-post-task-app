@@ -59,11 +59,13 @@
 
 <script>
 import axios from "axios";
-import date from "../mixins/date";
 
 export default {
-  props: ["postData"],
-  mixins: [date],
+  props: {
+    postData: {
+      type: Object
+    }
+  },
 
   data() {
     return {
@@ -103,7 +105,7 @@ export default {
 
     async submitNewPost(item) {
       try {
-        await axios.post("http://localhost:3000/posts", item)
+        await axios.post(this.$baseURL + "posts", item)
           .then(() => {
             this.$router.go();
           });

@@ -13,19 +13,19 @@ export default {
   props: {
     type: {
       type: String,
-      default: "info",
+      default: "info"
     },
     message: {
       type: String,
-      default: "information",
-    },
+      default: "information"
+    }
   },
   data() {
     return {
       notification: this.message,
-      alertClass: this.type,
+      alertClass: this.type
     };
-  },
+  }
 };
 </script>
 

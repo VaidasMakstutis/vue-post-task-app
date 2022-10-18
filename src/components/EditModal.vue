@@ -59,14 +59,17 @@ import Notification from "./Notification.vue";
   
   export default {
     components: { Notification },
-    props: ["item"],
+    props: {
+      item: {
+       type: Object
+      }
+    },
     name: "EditModal",
     mixins: [date],
 
     data() {
       return {
         editData: {
-          id: "",
           title: "",
           author: "",
           body: "",
@@ -96,10 +99,10 @@ import Notification from "./Notification.vue";
   
       async submitEditPost() {
         try {
-          this.editData.updated_at = new Date();
-            await axios.put("http://localhost:3000/posts/" + this.item.id, this.item).then(() => {
+            this.editData.updated_at = this.formatDate(date);
+            await axios.put(this.$baseURL + "posts/" + this.item.id, this.item).then(() => {
               this.notificationMsg = "Post has been edited succesfully!";
-              this.notificationStatus = "success";
+              this.notificationStatus = "is-success";
               setTimeout(() => {
                 if (this.$router.currentRoute.name == "details") {
                   this.$router.push({ name: "posts-list" });
@@ -110,7 +113,9 @@ import Notification from "./Notification.vue";
               this.$emit("toggleEditModal");
             });
         } catch (error) {
-          console.log(error);
+           this.notificationMsg = "Something went wrong. Please try it again!";
+           this.notificationStatus = "is-success";
+           console.log(error);
         }
       },
     },

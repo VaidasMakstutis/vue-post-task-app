@@ -1,17 +1,21 @@
 <template>
   <div>
     <div class="top">
-      <PostModal v-if="showPostModal" @close="showPostModal = false" :postData="postData" />
+      <PostModal
+        v-if="showPostModal"
+        @close="showPostModal = false"
+        :postData="postData"
+      />
       <EditModal
         v-if="showEditModal"
-        :item="selectedEditItem"
+        :item="selectedItem"
         @close="showEditModal = false"
         @openEditModal="toggleEditModal"
         @closeNotification="closeNotification()"
       />
       <DeleteModal
         v-if="showDeleteModal"
-        :item="selectedDeleteItem"
+        :item="selectedItem"
         @close="showDeleteModal = false"
         @openDeleteModal="toggleDeleteModal"
         @closeNotification="closeNotification()"
@@ -78,11 +82,12 @@
 
 <script>
 import axios from "axios";
+import date from "../mixins/date";
 import PostModal from "../components/PostModal.vue";
 import EditModal from "../components/EditModal.vue";
 import DeleteModal from "../components/DeleteModal.vue";
 import Notification from "../components/Notification.vue";
-import PostCard from "./PostCard.vue";
+import PostCard from "../components/PostCard.vue";
 import Pagination from "../components/Pagination.vue";
 
 export default {
@@ -93,8 +98,9 @@ export default {
     DeleteModal,
     PostCard,
     Notification,
-    Pagination,
+    Pagination
   },
+  mixins: [date],
   // state
   data() {
     return {
@@ -104,19 +110,18 @@ export default {
         title: null,
         author: null,
         body: null,
-        created_at: new Date(),
-        updated_at: "",
+        created_at: this.formatDate(date),
+        updated_at: ""
       },
       notificationMsg: "",
       notificationStatus: "",
       showPostModal: false,
       showEditModal: false,
       showDeleteModal: false,
-      selectedDeleteItem: null,
-      selectedEditItem: null,
+      selectedItem: null,
       currentPage: 1,
       perPageQty: 7,
-      totalPostsQty: 0,
+      totalPostsQty: 0
     };
   },
   methods: {
@@ -128,13 +133,13 @@ export default {
       let query = this.searchValue ? "?q=" + this.searchValue : "";
       try {
         await axios
-          .get("http://localhost:3000/posts" + query, {
+          .get(this.$baseURL + "posts" + query, {
             params: {
               _limit: this.perPageQty,
-              _page: this.currentPage,
-            },
+              _page: this.currentPage
+            }
           })
-          .then((res) => {
+          .then(res => {
             this.posts = res.data;
             this.totalPostsQty = parseInt(res.headers["x-total-count"]);
           });
@@ -143,21 +148,21 @@ export default {
       }
     },
     toggleEditModal(item) {
-      this.selectedEditItem = item;
+      this.selectedItem = item;
       this.showEditModal = !this.showEditModal;
     },
     toggleDeleteModal(item) {
-      this.selectedDeleteItem = parseInt(item);
+      this.selectedItem = parseInt(item);
       this.showDeleteModal = !this.showDeleteModal;
     },
     onPageChange(page) {
       this.currentPage = page ? page : 1;
       this.getPosts();
-    },
+    }
   },
   async created() {
     await this.getPosts();
-  },
+  }
 };
 </script>
 
